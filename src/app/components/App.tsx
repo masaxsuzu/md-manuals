@@ -26,6 +26,11 @@ import { Steps } from "./Steps";
 import { manual1 } from "../manuals/manual1";
 import { Summary } from "./Summary";
 
+const ROUTER_BASENAME =
+  process.env.NODE_ENV === "development" ? "/" : "/md-manuals";
+console.log(ROUTER_BASENAME);
+console.log(process.env.PUBLIC_URL);
+
 export const App = () => {
   const m1 = manual1();
   const routers = [];
@@ -51,7 +56,7 @@ export const App = () => {
     })
   );
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={ROUTER_BASENAME}>
       <Routes>{routers}</Routes>
     </BrowserRouter>
   );

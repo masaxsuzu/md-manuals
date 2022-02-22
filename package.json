@@ -2,6 +2,7 @@
   "name": "md-manuals",
   "version": "1.0.0",
   "license": "MIT",
+  "homepage": "https://masaxsuzu.github.io/md-manuals",
   "devDependencies": {
     "@parcel/transformer-image": "^2.3.2",
     "@parcel/transformer-sass": "^2.3.2",
@@ -21,8 +22,8 @@
   },
   "scripts": {
     "start": "yarn parcel src/index.html --open",
-    "build": "yarn parcel build src/index.html",
-    "build:gh-pages": "yarn parcel build src/index.html --public-url /md-manuals --dist-dir ./docs",
+    "build": "yarn parcel build src/index.html src/404.html",
+    "build:gh-pages": "yarn parcel build src/index.html src/404.html --public-url /md-manuals --dist-dir ./docs",
     "test": "jest --env=jsdom",
     "fmt": "prettier --write src",
     "lint": "prettier --check src"
