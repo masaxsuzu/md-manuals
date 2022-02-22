@@ -6,12 +6,22 @@ import { CardStatus } from "../models/CardStatus-model";
 
 let order = 0;
 export function incrementOrder() {
-    return order++;
+  return order++;
 }
 export function deck(id: number, name: string): CardStatus {
-    return { id: id, name: name, order: incrementOrder(), location: { zone: 'mainDeck' } };
+  return {
+    id: id,
+    name: name,
+    order: incrementOrder(),
+    location: { zone: "mainDeck" },
+  };
 }
 
 export function exDeck(id: number, name: string): CardStatus {
-    return { id: id, name: name, order: incrementOrder(), location: { zone: 'extraDeck' } };
+  return {
+    id: id,
+    name: name,
+    order: incrementOrder(),
+    location: { zone: "extraDeck" },
+  };
 }

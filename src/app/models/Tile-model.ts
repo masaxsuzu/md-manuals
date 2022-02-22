@@ -1,1 +1,6 @@
-export interface Tile { name: string, width:number, height: number, location: number }
+export interface Tile {
+  name: string;
+  width: number;
+  height: number;
+  location: number;
+}

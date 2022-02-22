@@ -1,3 +1,3 @@
 export interface Images {
-    [className: string]: string
+  [className: string]: string;
 }
