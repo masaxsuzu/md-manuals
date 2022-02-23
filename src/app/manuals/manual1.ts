@@ -353,7 +353,7 @@ function manual15() {
     ef(20, [toMainMonster(20, 0)]),
     _linkEx(21, 0, 27, 20),
     ef(21, [toGraveyard(9), toSpellAndTrap(17, 0)]),
-    _globe(9, 4),
+    _globe(9, 6),
     _ss(0, 0),
     _ss(12, 1),
 
