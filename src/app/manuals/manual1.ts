@@ -309,7 +309,6 @@ function manual14() {
       toHand(-3, 4),
     ]),
     ns(0, "mainMonster", 0),
-    _ss(12, 1),
     _scale(0, 12, 6),
     _robe(6, 3, 0),
     _ss(3, 1),
