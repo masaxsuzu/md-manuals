@@ -11,8 +11,10 @@ export const GraveyardZone = (props: {
 }) => {
   const src =
     props.tiles.length > 0 ? props.tiles[props.tiles.length - 1].name : "NULL";
+  const title = props.tiles.map((t) => t.name).join(" ");
   return (
     <img
+      title={title}
       className={styles.card}
       src={props.images[src]}
       width={props.width}
