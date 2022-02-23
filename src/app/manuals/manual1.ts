@@ -21,8 +21,10 @@ import { getSnapshots } from "../services/SnapshotService";
 export function manual1() {
   return [
     manual11(),
-    manual12(),
-    manual13(),
+    manual121(),
+    manual122(),
+    manual131(),
+    manual132(),
     manual14(),
     manual15(),
     manual16(),
@@ -137,7 +139,7 @@ function manual11() {
   return logs;
 }
 
-function manual12() {
+function manual121() {
   const actions = [
     initCards([
       toHand(0, 0),
@@ -171,7 +173,41 @@ function manual12() {
   return logs;
 }
 
-function manual13() {
+function manual122() {
+  const actions = [
+    initCards([
+      toHand(0, 0),
+      toHand(9, 1),
+      toHand(-1, 2),
+      toHand(-2, 3),
+      toHand(-3, 4),
+    ]),
+    ns(0, "mainMonster", 0),
+    ef(0, [toGraveyard(9), toGraveyard(6)]),
+    ef(6, [toBanished(6), toHand(3, 1)]),
+    ef(3, [toMainMonster(3, 1)]),
+    link(27, "extraMonster", 0, [toGraveyard(0), toGraveyard(3)]),
+    ef(27, [toGraveyard(12)]),
+    ef(3, [toBanished(3), toHand(20, 0)]),
+    toSpellAndTrap(20, 0),
+    ef(20, [toMainMonster(20, 0)]),
+    link(21, "extraMonster", 0, [toGraveyard(27), toGraveyard(20)]),
+    ef(21, [toGraveyard(7), toSpellAndTrap(17)]),
+    ef(9, [toBanished(9), toGraveyard(16)]),
+    ef(0, [toMainMonster(0, 0)]),
+    ef(12, [toMainMonster(12, 1)]),
+    xyz(22, "mainMonster", 0, [toXyz(0), toXyz(12)]),
+    ef(21, [toGraveyard(0), toGraveyard(12), toGraveyard(22)]),
+    ef(22, [toMainMonster(0, 0), toMainMonster(6, 1)]),
+    xyz(28, "mainMonster", 4, [toXyz(0), toXyz(6)]),
+    inspect(),
+  ];
+  const logs = getSnapshots(init(), actions);
+  logs.shift();
+  return logs;
+}
+
+function manual131() {
   const actions = [
     initCards([
       toHand(0, 0),
@@ -189,12 +225,47 @@ function manual13() {
     ef(3, [toMainMonster(3, 1)]),
     link(21, "extraMonster", 0, [toGraveyard(3), toGraveyard(27)]),
     ef(21, [toGraveyard(9), toSpellAndTrap(17, 0)]),
-    ef(9, [toBanished(9), toGraveyard(18)]),
 
-    ef(18, [toBanished(18), toMainMonster(3, 1)]),
+    _boot(3, 18, 0),
+    _scale(0, 18, 7),
+    _globe(9, 16),
+    ef(18, [toBanished(18), toMainMonster(7, 1)]),
 
-    xyz(22, "mainMonster", 0, [toXyz(0), toXyz(3)]),
-    ef(21, [toGraveyard(0), toGraveyard(3), toGraveyard(22)]),
+    xyz(22, "mainMonster", 0, [toXyz(0), toXyz(7)]),
+    ef(21, [toGraveyard(0), toGraveyard(7), toGraveyard(22)]),
+    ef(22, [toMainMonster(0, 0), toMainMonster(7, 1)]),
+    xyz(28, "mainMonster", 4, [toXyz(0), toXyz(7)]),
+
+    inspect(),
+  ];
+  const logs = getSnapshots(init(), actions);
+  logs.shift();
+  return logs;
+}
+
+function manual132() {
+  const actions = [
+    initCards([
+      toHand(0, 0),
+      toHand(14, 1),
+      toHand(-1, 2),
+      toHand(-2, 3),
+      toHand(-3, 4),
+    ]),
+    ns(0, "mainMonster", 0),
+    _scale(0, 14, 6),
+    ef(14, [toMainMonster(14, 1)]),
+    _robe(6, 3, 0),
+    _ss(3, 2),
+    link(27, "extraMonster", 0, [toGraveyard(0), toGraveyard(3)]),
+    ef(27, [toGraveyard(12)]),
+    link(21, "extraMonster", 0, [toGraveyard(14), toGraveyard(27)]),
+    ef(21, [toGraveyard(9), toSpellAndTrap(17, 0)]),
+    _globe(9, 16),
+    ef(0, [toMainMonster(0, 0)]),
+    ef(14, [toMainMonster(14, 1)]),
+    xyz(22, "mainMonster", 0, [toXyz(0), toXyz(14)]),
+    ef(21, [toGraveyard(0), toGraveyard(14), toGraveyard(22)]),
     ef(22, [toMainMonster(0, 0), toMainMonster(3, 1)]),
     xyz(28, "mainMonster", 4, [toXyz(0), toXyz(3)]),
 

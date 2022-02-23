@@ -11,7 +11,7 @@ export const Steps = (props: { logs: Log[] }) => {
   const [count, setCount] = React.useState(0);
   return (
     <div>
-      <MediaQuery query="(max-width: 400px)">
+      <MediaQuery query="(max-width: 399px)">
         <SnapShot
           itemWidth={width * 0.75}
           itemHeight={height * 0.75}
