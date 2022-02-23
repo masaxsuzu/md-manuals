@@ -32,6 +32,7 @@
     "@parcel/resolver-glob": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-responsive": "^9.0.0-beta.6",
     "react-router-dom": "^6.2.1"
   },
   "jest": {

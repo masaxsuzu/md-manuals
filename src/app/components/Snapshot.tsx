@@ -14,26 +14,30 @@ import { MainDeckZone } from "./zones/MainDeckZone";
 import { CardZone } from "./zones/CardZone";
 import { EmptyZone } from "./zones/EmptyZone";
 
-const width = 48;
-const height = 67.56;
 const col = 7;
 const images = getImages();
 
-export const SnapShot = (props: { snapshot: Snapshot }) => {
+export const SnapShot = (props: {
+  itemWidth: number;
+  itemHeight: number;
+  snapshot: Snapshot;
+}) => {
+  const width = props.itemWidth;
+  const height = props.itemHeight;
   const rows = [
-    toRow("extraMonster", props.snapshot.extraMonsters),
-    toRow("mainMonster", props.snapshot.mainMonsters),
-    toRow("spellAndTrap", props.snapshot.spellAndTraps),
-    toRow("hand", props.snapshot.hands),
+    toRow(width, height, "extraMonster", props.snapshot.extraMonsters),
+    toRow(width, height, "mainMonster", props.snapshot.mainMonsters),
+    toRow(width, height, "spellAndTrap", props.snapshot.spellAndTraps),
+    toRow(width, height, "hand", props.snapshot.hands),
   ];
 
-  const banished = toRow("banished", props.snapshot.banished);
+  const banished = toRow(width, height, "banished", props.snapshot.banished);
   const field = props.snapshot.field
-    ? toRow("banished", [props.snapshot.field])
+    ? toRow(width, height, "banished", [props.snapshot.field])
     : [];
-  const graveyard = toRow("graveyard", props.snapshot.graveyard);
-  const extraDeck = toRow("extraDeck", props.snapshot.extraDeck);
-  const mainDeck = toRow("mainDeck", props.snapshot.mainDeck);
+  const graveyard = toRow(width, height, "graveyard", props.snapshot.graveyard);
+  const extraDeck = toRow(width, height, "extraDeck", props.snapshot.extraDeck);
+  const mainDeck = toRow(width, height, "mainDeck", props.snapshot.mainDeck);
 
   const tiles: any[] = [];
   for (let index = 0; index < col * 4; index++) {
@@ -133,7 +137,12 @@ export const SnapShot = (props: { snapshot: Snapshot }) => {
   return fields;
 };
 
-function toRow(zone: ZoneId, cards: CardStatus[]): Tile[] {
+function toRow(
+  width: number,
+  height: number,
+  zone: ZoneId,
+  cards: CardStatus[]
+): Tile[] {
   switch (zone) {
     case "extraMonster":
       return cards.map((c) => {

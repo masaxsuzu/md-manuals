@@ -2,12 +2,29 @@ import React from "react";
 import { Log } from "../models/Log-model";
 import { SnapShot } from "./Snapshot";
 import * as styles from "./App.scss";
+import MediaQuery from "react-responsive";
+
+const width = 48;
+const height = 67.56;
 
 export const Steps = (props: { logs: Log[] }) => {
   const [count, setCount] = React.useState(0);
   return (
     <div>
-      <SnapShot snapshot={props.logs[count].snapshot}></SnapShot>
+      <MediaQuery query="(max-width: 400px)">
+        <SnapShot
+          itemWidth={width * 0.75}
+          itemHeight={height * 0.75}
+          snapshot={props.logs[count].snapshot}
+        ></SnapShot>
+      </MediaQuery>
+      <MediaQuery query="(min-width: 400px)">
+        <SnapShot
+          itemWidth={width}
+          itemHeight={height}
+          snapshot={props.logs[count].snapshot}
+        ></SnapShot>
+      </MediaQuery>
       <button
         key="start"
         onClick={() => {
