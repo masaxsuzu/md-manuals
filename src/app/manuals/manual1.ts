@@ -27,7 +27,8 @@ export function manual1() {
     manual132(),
     manual14(),
     manual15(),
-    manual16(),
+    manual161(),
+    manual162(),
     manual17(),
     manual18(),
     manual19(),
@@ -369,7 +370,7 @@ function manual15() {
   logs.shift();
   return logs;
 }
-function manual16() {
+function manual161() {
   const actions = [
     initCards([
       toHand(3, 0),
@@ -396,6 +397,41 @@ function manual16() {
     ef(21, [toGraveyard(4), toGraveyard(0), toGraveyard(22)]),
     ef(22, [toMainMonster(0, 0), toMainMonster(4, 1)]),
     _xyzMain(28, 4, 0, 4),
+
+    inspect(),
+  ];
+  const logs = getSnapshots(init(), actions);
+  logs.shift();
+  return logs;
+}
+
+function manual162() {
+  const actions = [
+    initCards([
+      toHand(6, 0),
+      toHand(3, 1),
+      toHand(-1, 2),
+      toHand(-2, 3),
+      toHand(-3, 4),
+    ]),
+    ns(6, "mainMonster", 0),
+    _ss(3, 1),
+    _linkEx(27, 0, 6, 3),
+    ef(27, [toGraveyard(0)]),
+    _boot(3, 20, 0),
+    _ss(0, 1),
+    toSpellAndTrap(20, 0),
+    _ss(20, 0),
+    _linkEx(21, 0, 27, 20),
+    ef(21, [toGraveyard(9), toSpellAndTrap(17, 0)]),
+    _globe(9, 18),
+    ef(16, [toBanished(18), toMainMonster(6)]),
+
+    _xyzMain(22, 0, 6, 0),
+
+    ef(21, [toGraveyard(6), toGraveyard(0), toGraveyard(22)]),
+    ef(22, [toMainMonster(6, 0), toMainMonster(0, 1)]),
+    _xyzMain(28, 4, 0, 6),
 
     inspect(),
   ];
