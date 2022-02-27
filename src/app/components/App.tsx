@@ -25,6 +25,8 @@ import { deck } from "../services/CardService";
 import { Steps } from "./Steps";
 import { manual1 } from "../manuals/manual1";
 import { Summary } from "./Summary";
+import { manual2 } from "../manuals/manual2";
+import { Log } from "../models/Log-model";
 
 const ROUTER_BASENAME =
   process.env.NODE_ENV === "development" ? "/" : "/md-manuals";
@@ -33,27 +35,10 @@ console.log(process.env.PUBLIC_URL);
 
 export const App = () => {
   const m1 = manual1();
-  const routers = [];
+  const m2 = manual2();
+  const routers = manual([m1,m2]);
   routers.push(
-    <Route key={"0"} path={""} element={<Navigate to="1"></Navigate>}></Route>
-  );
-  routers.push(
-    <Route
-      key={`1`}
-      path={`1`}
-      element={<Summary id={1} manuals={m1}></Summary>}
-    ></Route>
-  );
-  routers.push(
-    m1.map((x, i) => {
-      return (
-        <Route
-          key={`1/${i}`}
-          path={`1/${i}`}
-          element={<Steps logs={x}></Steps>}
-        ></Route>
-      );
-    })
+    <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
   );
   return (
     <BrowserRouter basename={ROUTER_BASENAME}>
@@ -61,3 +46,29 @@ export const App = () => {
     </BrowserRouter>
   );
 };
+
+function manual(manuals: Log[][][]) {
+  const routers: (JSX.Element | JSX.Element[])[] = [];
+  manuals.forEach((m,i) => {
+    const key = i + 1;
+    routers.push(
+    <Route
+      key={`${key}`}
+      path={`${key}`}
+      element={<Summary id={key} manuals={m}></Summary>}
+    ></Route>
+    );
+    routers.push(
+      m.map((x, i) => {
+        return (
+          <Route
+            key={`${key}/${i}`}
+            path={`${key}/${i}`}
+            element={<Steps logs={x}></Steps>}
+          ></Route>
+        );
+      })
+    );
+  });
+  return routers;
+}
