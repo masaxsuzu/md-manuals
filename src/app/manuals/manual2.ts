@@ -560,7 +560,7 @@ function manual27() {
 
     ns(diviner.a, "mainMonster", 1),
     ef(diviner.a, [toGraveyard(rainbow.a)]),
-    ef(rainbow.a, [toHand(meteonis.a, 0)]),
+    ef(rainbow.a, [toHand(meteonis.a, 1)]),
 
     ef(meteonis.a, [
       toGraveyard(alpha.a),
