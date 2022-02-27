@@ -36,7 +36,7 @@ console.log(process.env.PUBLIC_URL);
 export const App = () => {
   const m1 = manual1();
   const m2 = manual2();
-  const routers = manual([m1,m2]);
+  const routers = manual([m1, m2]);
   routers.push(
     <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
   );
@@ -49,14 +49,14 @@ export const App = () => {
 
 function manual(manuals: Log[][][]) {
   const routers: (JSX.Element | JSX.Element[])[] = [];
-  manuals.forEach((m,i) => {
+  manuals.forEach((m, i) => {
     const key = i + 1;
     routers.push(
-    <Route
-      key={`${key}`}
-      path={`${key}`}
-      element={<Summary id={key} manuals={m}></Summary>}
-    ></Route>
+      <Route
+        key={`${key}`}
+        path={`${key}`}
+        element={<Summary id={key} manuals={m}></Summary>}
+      ></Route>
     );
     routers.push(
       m.map((x, i) => {

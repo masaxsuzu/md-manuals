@@ -28,8 +28,22 @@ export const SnapShot = (props: {
     toRow(width, height, "extraMonster", props.snapshot.extraMonsters),
     toRow(width, height, "mainMonster", props.snapshot.mainMonsters),
     toRow(width, height, "spellAndTrap", props.snapshot.spellAndTraps),
-    toRow(width, height, "hand", props.snapshot.hands.filter(h => h.location.at ? h.location.at : 0  < 5)),
-    toRow(width, height, "hand", props.snapshot.hands.filter(h => h.location.at ? h.location.at : 0 >= 5)),
+    toRow(
+      width,
+      height,
+      "hand",
+      props.snapshot.hands.filter((h) =>
+        h.location.at ? h.location.at : 0 < 5
+      )
+    ),
+    toRow(
+      width,
+      height,
+      "hand",
+      props.snapshot.hands.filter((h) =>
+        h.location.at ? h.location.at : 0 >= 5
+      )
+    ),
   ];
 
   const banished = toRow(width, height, "banished", props.snapshot.banished);
@@ -52,7 +66,7 @@ export const SnapShot = (props: {
         col * 0 + 5,
         col * 3,
         col * 3 + (col - 1),
-        col * 4 ,
+        col * 4,
         col * 4 + (col - 1),
       ].includes(index)
     ) {
@@ -184,9 +198,7 @@ function toRow(
           name: c.name,
           width: width,
           height: height,
-          location: loc < 5 
-            ? loc + col * 3 + 1
-            : loc - 5 + col*4 + 1,
+          location: loc < 5 ? loc + col * 3 + 1 : loc - 5 + col * 4 + 1,
         };
       });
     default:
