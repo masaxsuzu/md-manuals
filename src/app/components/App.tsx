@@ -33,7 +33,7 @@ console.log(`ROUTER_BASENAME=${ROUTER_BASENAME}`);
 console.log(`ROUTER_BASENAME=${process.env.PUBLIC_URL}`);
 
 export const App = () => {
-  const routers = manual([0, 1]);
+  const routers = manual([0, 1, 2]);
   routers.push(
     <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
   );

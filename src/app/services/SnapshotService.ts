@@ -27,7 +27,8 @@ function getSnapshot(state: CardStatus[]): Snapshot {
     .sort((a, b) => a.id - b.id);
   const extraDeck = state
     .filter((c) => c.location.zone === "extraDeck")
-    .sort((a, b) => a.id - b.id);
+    .sort((a, b) => a.order - b.order)
+    .sort((a, b) => (a.head ? 1 : 0 - (b.head ? 1 : 0)));
   const mainMonsters = state
     .filter((c) => c.location.zone === "mainMonster")
     .sort((a, b) => a.order - b.order);

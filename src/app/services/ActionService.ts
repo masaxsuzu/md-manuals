@@ -24,6 +24,13 @@ export function toHand(cardId: number, at?: number): Action {
   return new MoveAction(cardId, incrementOrder(), { zone: "hand", at: at });
 }
 
+export function toExtraMonster(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "extraMonster",
+    at: at,
+  });
+}
+
 export function toMainMonster(cardId: number, at?: number): Action {
   return new MoveAction(cardId, incrementOrder(), {
     zone: "mainMonster",
@@ -35,6 +42,21 @@ export function toSpellAndTrap(cardId: number, at?: number): Action {
   return new MoveAction(cardId, incrementOrder(), {
     zone: "spellAndTrap",
     at: at,
+  });
+}
+
+export function toScale(cardId: number, at: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "spellAndTrap",
+    at: at > 0 ? 4 : 0,
+    head: true,
+  });
+}
+
+export function toExtraDeck(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "extraDeck",
+    head: true,
   });
 }
 
@@ -79,6 +101,10 @@ export function xyz(
   return new XYZAction(xyz, incrementOrder(), { zone: zone, at: at }, actions);
 }
 
+export function pendulum(actions: Action[]): Action {
+  return new PendulumAction(actions);
+}
+
 class InitAction implements Action {
   constructor(public actions: Action[]) {}
   run(cards: CardStatus[]) {
@@ -119,7 +145,7 @@ class MoveAction implements Action {
   constructor(
     public cardId: number,
     public order: number,
-    public to: { zone: ZoneId; at?: number }
+    public to: { zone: ZoneId; at?: number; head?: boolean }
   ) {}
   run(cards: CardStatus[]) {
     const card = cards.filter((c) => c.id === this.cardId);
@@ -128,6 +154,9 @@ class MoveAction implements Action {
     }
     card[0].location = this.to;
     card[0].order = this.order;
+    if (this.to.head !== undefined) {
+      card[0].head = this.to.head;
+    }
     const zoneName = getZoneName(card[0].location.zone);
     return `- ${card[0].name} -> ${zoneName}`;
   }
@@ -164,6 +193,17 @@ class XYZAction implements Action {
       actionLogs.push(action.run(cards));
     }
     return `${xyz[0].name}をエクシーズ召喚:\n${actionLogs.join("\n")}`;
+  }
+}
+
+class PendulumAction implements Action {
+  constructor(public actions: Action[]) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    return `ペンデュラム召喚:\n${actionLogs.join("\n")}`;
   }
 }
 

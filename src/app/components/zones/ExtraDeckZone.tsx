@@ -9,7 +9,13 @@ export const ExtraDeckZone = (props: {
   height: number;
   tiles: Tile[];
 }) => {
-  const src = props.tiles.length > 0 ? "裏" : "NULL";
+  const len = props.tiles.length;
+  const src =
+    props.tiles.length <= 0
+      ? "NULL"
+      : props.tiles[len - 1].head
+      ? props.tiles[len - 1].name
+      : "裏";
   return (
     <img
       className={styles.card}

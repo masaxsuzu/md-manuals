@@ -22,7 +22,7 @@ import { getSnapshots } from "../services/SnapshotService";
 
 export class Manual2 implements Manual {
   getId(): number {
-    return 0;
+    return 1;
   }
   getSize(): number {
     return 8;
