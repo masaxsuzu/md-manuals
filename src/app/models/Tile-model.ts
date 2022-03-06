@@ -3,4 +3,5 @@ export interface Tile {
   width: number;
   height: number;
   location: number;
+  head: boolean;
 }

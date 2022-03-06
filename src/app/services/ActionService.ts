@@ -1,5 +1,3 @@
-import { Images } from "../models/Images-model";
-import images from "../../images/*.jpg";
 import { ZoneId } from "../models/Zone-id";
 import { Action } from "../models/Action-model";
 import { CardStatus } from "../models/CardStatus-model";

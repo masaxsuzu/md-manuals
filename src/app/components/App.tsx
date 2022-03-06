@@ -23,20 +23,17 @@ import {
 } from "../services/ActionService";
 import { deck } from "../services/CardService";
 import { Steps } from "./Steps";
-import { manual1 } from "../manuals/manual1";
 import { Summary } from "./Summary";
-import { manual2 } from "../manuals/manual2";
 import { Log } from "../models/Log-model";
+import { getManual } from "../services/ManualService";
 
 const ROUTER_BASENAME =
   process.env.NODE_ENV === "development" ? "/" : "/md-manuals";
-console.log(ROUTER_BASENAME);
-console.log(process.env.PUBLIC_URL);
+console.log(`ROUTER_BASENAME=${ROUTER_BASENAME}`);
+console.log(`ROUTER_BASENAME=${process.env.PUBLIC_URL}`);
 
 export const App = () => {
-  const m1 = manual1();
-  const m2 = manual2();
-  const routers = manual([m1, m2]);
+  const routers = manual([0, 1]);
   routers.push(
     <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
   );
@@ -47,28 +44,28 @@ export const App = () => {
   );
 };
 
-function manual(manuals: Log[][][]) {
+function manual(ns: number[]) {
   const routers: (JSX.Element | JSX.Element[])[] = [];
-  manuals.forEach((m, i) => {
-    const key = i + 1;
+  ns.map((n) => {
+    const key = n + 1;
+    const m = getManual(n);
     routers.push(
       <Route
         key={`${key}`}
         path={`${key}`}
-        element={<Summary id={key} manuals={m}></Summary>}
+        element={<Summary id={key} manual={m}></Summary>}
       ></Route>
     );
-    routers.push(
-      m.map((x, i) => {
-        return (
-          <Route
-            key={`${key}/${i}`}
-            path={`${key}/${i}`}
-            element={<Steps logs={x}></Steps>}
-          ></Route>
-        );
-      })
-    );
+    var x = [...Array(m.getSize())].map((_, i) => {
+      return (
+        <Route
+          key={`${key}/${i}`}
+          path={`${key}/${i}`}
+          element={<Steps manual={m} n={i}></Steps>}
+        ></Route>
+      );
+    });
+    routers.push(x);
   });
   return routers;
 }

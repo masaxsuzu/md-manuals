@@ -168,6 +168,7 @@ function toRow(
           width: width,
           height: height,
           location: c.location.at === 0 ? 2 : 4,
+          head: c.head,
         };
       });
     case "mainMonster":
@@ -178,6 +179,7 @@ function toRow(
           width: width,
           height: height,
           location: loc + col + 1,
+          head: c.head,
         };
       });
     case "spellAndTrap":
@@ -189,6 +191,7 @@ function toRow(
           width: width,
           height: height,
           location: loc + col * 2 + 1,
+          head: c.head,
         };
       });
     case "hand":
@@ -199,6 +202,7 @@ function toRow(
           width: width,
           height: height,
           location: loc < 5 ? loc + col * 3 + 1 : loc - 5 + col * 4 + 1,
+          head: c.head,
         };
       });
     default:
@@ -224,6 +228,7 @@ function toRow(
           width: width,
           height: height,
           location: loc,
+          head: c.head,
         };
       });
   }

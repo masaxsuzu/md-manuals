@@ -3,11 +3,14 @@ import { Log } from "../models/Log-model";
 import { SnapShot } from "./Snapshot";
 import * as styles from "./App.scss";
 import MediaQuery from "react-responsive";
+import { Manual1 } from "../manuals/manual1";
+import { Manual } from "../models/manual-model";
 
 const width = 48;
 const height = 67.56;
 
-export const Steps = (props: { logs: Log[] }) => {
+export const Steps = (props: { manual: Manual; n: number }) => {
+  const logs = props.manual.getNth(props.n);
   const [count, setCount] = React.useState(0);
   return (
     <div>
@@ -15,14 +18,14 @@ export const Steps = (props: { logs: Log[] }) => {
         <SnapShot
           itemWidth={width * 0.75}
           itemHeight={height * 0.75}
-          snapshot={props.logs[count].snapshot}
+          snapshot={logs[count].snapshot}
         ></SnapShot>
       </MediaQuery>
       <MediaQuery query="(min-width: 400px)">
         <SnapShot
           itemWidth={width}
           itemHeight={height}
-          snapshot={props.logs[count].snapshot}
+          snapshot={logs[count].snapshot}
         ></SnapShot>
       </MediaQuery>
       <button
@@ -46,7 +49,7 @@ export const Steps = (props: { logs: Log[] }) => {
       <button
         key="next"
         onClick={() => {
-          if (count < props.logs.length - 1) {
+          if (count < logs.length - 1) {
             setCount(count + 1);
           }
         }}
@@ -56,13 +59,13 @@ export const Steps = (props: { logs: Log[] }) => {
       <button
         key="end"
         onClick={() => {
-          setCount(props.logs.length - 1);
+          setCount(logs.length - 1);
         }}
       >
         End
       </button>
       <br></br>
-      <p className={styles.actionLog}>{props.logs[count].actionLog}</p>
+      <p className={styles.actionLog}>{logs[count].actionLog}</p>
     </div>
   );
 };

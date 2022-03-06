@@ -5,4 +5,5 @@ export interface CardStatus {
   name: string;
   order: number;
   location: Location;
+  head: boolean;
 }

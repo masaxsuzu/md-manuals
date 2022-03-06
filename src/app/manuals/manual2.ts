@@ -1,5 +1,7 @@
 import { Action } from "../models/Action-model";
 import { CardStatus } from "../models/CardStatus-model";
+import { Log } from "../models/Log-model";
+import { Manual } from "../models/manual-model";
 import {
   initCards,
   ef,
@@ -18,17 +20,38 @@ import {
 import { deck, exDeck } from "../services/CardService";
 import { getSnapshots } from "../services/SnapshotService";
 
-export function manual2() {
-  return [
-    manual21(),
-    manual22(),
-    manual23(),
-    manual24(),
-    manual25(),
-    manual26(),
-    manual27(),
-    manual28(),
-  ];
+export class Manual2 implements Manual {
+  getId(): number {
+    return 0;
+  }
+  getSize(): number {
+    return 8;
+  }
+  getAll(): Log[][] {
+    return [...Array(8)].map((_, n) => this.getNth(n));
+  }
+  getNth(n: number): Log[] {
+    switch (n) {
+      case 0:
+        return manual21();
+      case 1:
+        return manual22();
+      case 2:
+        return manual23();
+      case 3:
+        return manual24();
+      case 4:
+        return manual25();
+      case 5:
+        return manual26();
+      case 6:
+        return manual27();
+      case 7:
+        return manual28();
+      default:
+        return [];
+    }
+  }
 }
 
 const init = () => {

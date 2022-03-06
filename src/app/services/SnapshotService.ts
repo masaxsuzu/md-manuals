@@ -1,5 +1,3 @@
-import { Images } from "../models/Images-model";
-import images from "../../images/*.jpg";
 import { Snapshot } from "../models/Snapshot-model";
 import { Action } from "../models/Action-model";
 import { CardStatus } from "../models/CardStatus-model";
