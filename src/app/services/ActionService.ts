@@ -45,6 +45,12 @@ export function toSpellAndTrap(cardId: number, at?: number): Action {
   });
 }
 
+export function toField(cardId: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "field",
+  });
+}
+
 export function toScale(cardId: number, at: number): Action {
   return new MoveAction(cardId, incrementOrder(), {
     zone: "spellAndTrap",
@@ -99,6 +105,20 @@ export function xyz(
   actions: Action[]
 ): Action {
   return new XYZAction(xyz, incrementOrder(), { zone: zone, at: at }, actions);
+}
+
+export function synchro(
+  synchro: number,
+  zone: ZoneId,
+  at: number,
+  actions: Action[]
+): Action {
+  return new SynchroAction(
+    synchro,
+    incrementOrder(),
+    { zone: zone, at: at },
+    actions
+  );
 }
 
 export function pendulum(actions: Action[]): Action {
@@ -171,6 +191,28 @@ class EffectAction implements Action {
     }
     const card = cards.filter((c) => c.id === this.cardId)[0];
     return `${card.name}の効果:\n${actionLogs.join("\n")}`;
+  }
+}
+
+class SynchroAction implements Action {
+  constructor(
+    public synchro: number,
+    public order: number,
+    public to: { zone: ZoneId; at: number },
+    public actions: Action[]
+  ) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    const synchro = cards.filter((c) => c.id === this.synchro);
+    if (synchro.length === 0) {
+      return "Error";
+    }
+    synchro[0].location = this.to;
+    synchro[0].order = this.order;
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    return `${synchro[0].name}をシンクロ召喚:\n${actionLogs.join("\n")}`;
   }
 }
 
