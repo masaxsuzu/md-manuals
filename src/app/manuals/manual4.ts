@@ -24,9 +24,9 @@ import {
 import { deck, exDeck } from "../services/CardService";
 import { getSnapshots } from "../services/SnapshotService";
 
-export class Manual3 implements Manual {
+export class Manual4 implements Manual {
   getId(): number {
-    return 2;
+    return 3;
   }
   getSize(): number {
     return 6;

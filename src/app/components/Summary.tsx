@@ -3,7 +3,7 @@ import { Log } from "../models/Log-model";
 import { SnapShot } from "./Snapshot";
 import * as styles from "./App.scss";
 import { Link } from "react-router-dom";
-import { Manual } from "../models/manual-model";
+import { Manual } from "../models/Manual-model";
 
 export const Summary = (props: { id: number; manual: Manual }) => {
   const manual = props.manual;

@@ -4,7 +4,7 @@ import { SnapShot } from "./Snapshot";
 import * as styles from "./App.scss";
 import MediaQuery from "react-responsive";
 import { Manual1 } from "../manuals/manual1";
-import { Manual } from "../models/manual-model";
+import { Manual } from "../models/Manual-model";
 
 const width = 48;
 const height = 67.56;

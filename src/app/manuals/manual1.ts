@@ -1,7 +1,7 @@
 import { Action } from "../models/Action-model";
 import { CardStatus } from "../models/CardStatus-model";
 import { Log } from "../models/Log-model";
-import { Manual } from "../models/manual-model";
+import { Manual } from "../models/Manual-model";
 import {
   initCards,
   ef,

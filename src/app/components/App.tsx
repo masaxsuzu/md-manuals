@@ -33,7 +33,8 @@ console.log(`ROUTER_BASENAME=${ROUTER_BASENAME}`);
 console.log(`ROUTER_BASENAME=${process.env.PUBLIC_URL}`);
 
 export const App = () => {
-  const routers = manual([0, 1, 2]);
+  console.log("X");
+  const routers = manual([0, 1, 2, 3]);
   routers.push(
     <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
   );
@@ -56,7 +57,7 @@ function manual(ns: number[]) {
         element={<Summary id={key} manual={m}></Summary>}
       ></Route>
     );
-    var x = [...Array(m.getSize())].map((_, i) => {
+    let x = [...Array(m.getSize())].map((_, i) => {
       return (
         <Route
           key={`${key}/${i}`}
