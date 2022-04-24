@@ -127,6 +127,7 @@ const wikid = card1("ウィキッド");
 const transCode = card1("トランスコードトーカー");
 const darkKnight = card1("ダークナイト");
 const windPegasus = card1("ウィンドペガサス");
+const alival = card1("アライバル");
 
 function manual31() {
   const actions: Action[] = [
@@ -163,12 +164,14 @@ function manual31() {
 
     ef(wikid.a, [toBanished(darkInfant.a), toHand(bururu.a, 5)]),
 
-    ef(doyon.a, [toHand(achichi.b, 6)]),
+    ef(doyon.a, [toHand(achichi.a, 6)]),
 
     link(transCode.a, "extraMonster", 0, [
       toGraveyard(wikid.a),
       toGraveyard(doyon.a),
     ]),
+
+    ef(doyon.a, [toHand(meruriAi.a, 0)]),
 
     ef(aiLand.a, [ss(bururu.a, "mainMonster", 0)]),
 
@@ -177,32 +180,40 @@ function manual31() {
     ef(transCode.a, [ss(wikid.a, "extraMonster", 1)]),
 
     link(darkKnight.a, "extraMonster", 1, [
+      toGraveyard(transCode.a),
       toGraveyard(wikid.a),
       toGraveyard(bururu.a),
     ]),
 
-    ef(aiLand.a, [ss(achichi.b, "mainMonster", 0)]),
+    ef(aiLand.a, [ss(achichi.a, "mainMonster", 0)]),
 
     link(darkInfant.b, "mainMonster", 2, [
       toGraveyard(transCode.a),
-      toGraveyard(achichi.b),
+      toGraveyard(achichi.a),
     ]),
+
+    ef(darkInfant.b, [toMainMonster(darkInfant.b, 1)]),
 
     ef(darkKnight.a, [
-      toMainMonster(achichi.a, 0),
-      toMainMonster(bururu.a, 1),
-      toMainMonster(pikari.a, 3),
+      toMainMonster(achichi.a, 2),
+      toMainMonster(bururu.a, 3),
+      toMainMonster(pikari.a, 4),
     ]),
 
-    ef(darkInfant.b, [toMainMonster(darkInfant.b, 2)]),
-
-    synchro(windPegasus.a, "mainMonster", 1, [
+    synchro(windPegasus.a, "mainMonster", 0, [
       toGraveyard(bururu.a),
       toGraveyard(pikari.a),
     ]),
 
     ef(bururu.a, [ss(pikari.a, "mainMonster", 3)]),
 
+    link(alival.a, "extraMonster", 1, [
+      toGraveyard(darkKnight.a),
+      toGraveyard(windPegasus.a),
+      toGraveyard(darkInfant.b),
+      toGraveyard(achichi.a),
+      toGraveyard(pikari.a),
+    ]),
     inspect(),
   ];
   const logs = getSnapshots(init(), actions);
