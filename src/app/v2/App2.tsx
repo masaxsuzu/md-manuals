@@ -1,9 +1,8 @@
 import React from "react";
 import { getImages } from "./services/ImageService";
-import { TileZone } from "./components/zones/TileZone";
 import { Tile } from "./models/Tile-model";
-import { EmptyZone } from "../components/zones/EmptyZone";
-import { SnapShot } from "./components/zones/Snapshot";
+import { Manual1 } from "./manuals/Manual1";
+import { Steps } from "./components/Steps";
 const images = getImages();
 
 export const App2 = () => {
@@ -88,22 +87,7 @@ export const App2 = () => {
     },
   ];
   let zones = [];
-  zones.push(
-    <SnapShot
-      itemHeight={h}
-      itemWidth={w}
-      images={images}
-      snapshot={{
-        extraMonsters: extraMonsters,
-        vanished: vanished,
-        field: [],
-        mainMonsters: mainMonsters,
-        cemetery: cemetery,
-        magicAndTraps: magicAndTraps,
-        hands: hands,
-      }}
-      key={0}
-    ></SnapShot>
-  );
+  const m1 = new Manual1();
+  zones.push(<Steps key={0} manual={m1} n={0}></Steps>);
   return <div>{zones}</div>;
 };

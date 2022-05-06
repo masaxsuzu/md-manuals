@@ -1,9 +1,9 @@
 import React from "react";
-import { Images } from "../../models/Images-model";
-import { Snapshot } from "../../models/Snapshot-model";
-import { Tile } from "../../models/Tile-model";
-import { EmptyZone } from "./EmptyZone";
-import { TileZone } from "./TileZone";
+import { Images } from "../models/Images-model";
+import { Snapshot } from "../models/Snapshot-model";
+import { Tile } from "../models/Tile-model";
+import { EmptyZone } from "./zones/EmptyZone";
+import { TileZone } from "./zones/TileZone";
 
 export const SnapShot = (props: {
   itemWidth: number;
