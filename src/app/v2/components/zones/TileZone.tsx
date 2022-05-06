@@ -2,7 +2,7 @@ import * as React from "react";
 import { Images } from "../../models/Images-model";
 import { Tile } from "../../models/Tile-model";
 import * as styles from "../../../App.scss";
-import { getCardStyle } from "../../services/StyleService";
+import { getTileStyle } from "../../services/StyleService";
 
 export const TileZone = (props: {
   images: Images;
@@ -16,7 +16,7 @@ export const TileZone = (props: {
   let src = tile == null ? "NULL" : tile.head ? tile.name : "ANY";
   const title = props.tiles.map((t) => t.name).join(" ");
 
-  const tileStyle = getCardStyle(props.width, props.height, props.isRotated);
+  const tileStyle = getTileStyle(props.width, props.height, props.isRotated);
   return (
     <img
       style={tileStyle}

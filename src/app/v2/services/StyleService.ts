@@ -1,4 +1,4 @@
-export function getCardStyle(
+export function getTileStyle(
   width: number,
   height: number,
   isRotated: boolean
@@ -7,7 +7,6 @@ export function getCardStyle(
   return isRotated
     ? {
         transform: "rotate(-90deg)",
-        marginLeft: 16,
         paddingTop: 1,
         paddingBottom: 1,
         paddingLeft: sidePadding,

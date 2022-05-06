@@ -9,52 +9,66 @@ const images = getImages();
 export const App2 = () => {
   const w = 48;
   const h = 68;
-  const rows2: Tile[] = [
+  const extraMonsters: Tile[] = [
     {
       head: true,
       location: 1,
-      name: "NULL",
+      name: "デスフェニ",
+    },
+  ];
+  const vanished: Tile[] = [
+    {
+      head: true,
+      location: 1,
+      name: "デスフェニ",
+    },
+    {
+      head: true,
+      location: 1,
+      name: "デスフェニ",
+    },
+  ];
+  const mainMonsters: Tile[] = [
+    {
+      head: true,
+      location: 3,
+      name: "デスフェニ",
+    },
+  ];
+
+  const cemetery: Tile[] = [
+    {
+      head: true,
+      location: 1,
+      name: "デスフェニ",
     },
     {
       head: true,
       location: 2,
       name: "デスフェニ",
     },
+  ];
+  const magicAndTraps: Tile[] = [
     {
       head: false,
-      location: 3,
+      location: 1,
       name: "ANY",
     },
     {
       head: false,
       location: 4,
       name: "ANY",
-    },
-    {
-      head: false,
-      location: 5,
-      name: "ANY",
-    },
-    {
-      head: false,
-      location: 6,
-      name: "ANY",
-    },
-    {
-      head: true,
-      location: 7,
-      name: "NULL",
     },
   ];
-  const rows4: Tile[] = [
+  const hands: Tile[] = [
     {
-      head: true,
+      head: false,
       location: 1,
-      name: "NULL",
+      name: "ANY",
     },
     {
       head: false,
-      location: 3,
+      location: 2,
       name: "ANY",
     },
     {
@@ -71,16 +85,6 @@ export const App2 = () => {
       head: false,
       location: 5,
       name: "ANY",
-    },
-    {
-      head: false,
-      location: 6,
-      name: "ANY",
-    },
-    {
-      head: true,
-      location: 7,
-      name: "NULL",
     },
   ];
   let zones = [];
@@ -89,13 +93,15 @@ export const App2 = () => {
       itemHeight={h}
       itemWidth={w}
       images={images}
-      extraMonsters={[]}
-      vanished={[]}
-      field={[]}
-      mainMonsters={rows2}
-      cemetery={[]}
-      magicAndTraps={[]}
-      hands={rows4}
+      snapshot={{
+        extraMonsters: extraMonsters,
+        vanished: vanished,
+        field: [],
+        mainMonsters: mainMonsters,
+        cemetery: cemetery,
+        magicAndTraps: magicAndTraps,
+        hands: hands,
+      }}
       key={0}
     ></SnapShot>
   );
