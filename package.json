@@ -24,7 +24,7 @@
     "clean:docs": "git rm ./docs -r",
     "start": "yarn parcel src/index.html --open",
     "build": "yarn parcel build src/index.html src/404.html",
-    "build:gh-pages": "yarn parcel build src/index.html src/404.html --public-url /md-manuals --dist-dir ./docs",
+    "build:gh-pages": "yarn parcel build src/index.html src/404.html --public-url /md-manuals --dist-dir ./dist",
     "test": "jest --env=jsdom",
     "fmt": "prettier --write src",
     "lint": "prettier --check src"
