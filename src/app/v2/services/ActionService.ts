@@ -31,12 +31,123 @@ export function initCards(actions: Action[]): Action {
   return new InitAction(actions);
 }
 
+export function ns(cardId: number, zone: ZoneId, at: number): Action {
+  return new NormalSummonAction(cardId, incrementOrder(), {
+    zone: zone,
+    at: at,
+  });
+}
+export function ss(cardId: number, zone: ZoneId, at: number): Action {
+  return new SpecialSummonAction(cardId, incrementOrder(), {
+    zone: zone,
+    at: at,
+  });
+}
+
 export function toHand(cardId: number, at?: number): Action {
   return new MoveAction(cardId, incrementOrder(), {
     zone: "hand",
     at: at,
     head: true,
   });
+}
+
+export function toExtraMonster(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "extraMonster",
+    at: at,
+  });
+}
+
+export function toMainMonster(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "mainMonster",
+    at: at,
+  });
+}
+
+export function toSpellAndTrap(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "magicAndTrap",
+    at: at,
+  });
+}
+
+export function toField(cardId: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "field",
+  });
+}
+
+export function toScale(cardId: number, at: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "magicAndTrap",
+    at: at > 0 ? 4 : 0,
+    head: true,
+  });
+}
+
+export function toExtraDeck(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "extraDeck",
+    head: true,
+  });
+}
+
+export function toCemetery(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), {
+    zone: "cemetery",
+    at: at,
+    head: true,
+  });
+}
+
+export function toBanished(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), { zone: "banished", at: at });
+}
+
+export function toXyz(cardId: number, at?: number): Action {
+  return new MoveAction(cardId, incrementOrder(), { zone: "xyz", at: at });
+}
+
+export function ef(cardId: number, actions: Action[]): Action {
+  return new EffectAction(cardId, actions);
+}
+
+export function link(
+  link: number,
+  zone: ZoneId,
+  at: number,
+  actions: Action[]
+): Action {
+  return new LinkAction(link, { zone: zone, at: at }, actions);
+}
+
+export function xyz(
+  xyz: number,
+  zone: ZoneId,
+  at: number,
+  actions: Action[]
+): Action {
+  return new XYZAction(xyz, incrementOrder(), { zone: zone, at: at }, actions);
+}
+
+export function synchro(
+  synchro: number,
+  zone: ZoneId,
+  at: number,
+  actions: Action[]
+): Action {
+  return new SynchroAction(
+    synchro,
+    incrementOrder(),
+    { zone: zone, at: at },
+    actions
+  );
+}
+
+export function pendulum(actions: Action[]): Action {
+  return new PendulumAction(actions);
 }
 
 class InitAction implements Action {
@@ -46,6 +157,32 @@ class InitAction implements Action {
       action.run(cards);
     }
     return `初期配置`;
+  }
+}
+
+class NormalSummonAction implements Action {
+  constructor(
+    public cardId: number,
+    public order: number,
+    public to: { zone: ZoneId; at?: number }
+  ) {}
+  run(cards: CardStatus[]) {
+    new MoveAction(this.cardId, this.order, this.to).run(cards);
+    const card = cards.filter((c) => c.id === this.cardId)[0];
+    return `${card.name}を通常召喚`;
+  }
+}
+
+class SpecialSummonAction implements Action {
+  constructor(
+    public cardId: number,
+    public order: number,
+    public to: { zone: ZoneId; at?: number }
+  ) {}
+  run(cards: CardStatus[]) {
+    new MoveAction(this.cardId, this.order, this.to).run(cards);
+    const card = cards.filter((c) => c.id === this.cardId)[0];
+    return `${card.name}を特殊召喚`;
   }
 }
 
@@ -67,6 +204,93 @@ class MoveAction implements Action {
     }
     const zoneName = getZoneName(card[0].location.zone);
     return `- ${card[0].name} -> ${zoneName}`;
+  }
+}
+
+class EffectAction implements Action {
+  constructor(public cardId: number, public actions: Action[]) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    const card = cards.filter((c) => c.id === this.cardId)[0];
+    return `${card.name}の効果:\n${actionLogs.join("\n")}`;
+  }
+}
+
+class SynchroAction implements Action {
+  constructor(
+    public synchro: number,
+    public order: number,
+    public to: { zone: ZoneId; at: number },
+    public actions: Action[]
+  ) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    const synchro = cards.filter((c) => c.id === this.synchro);
+    if (synchro.length === 0) {
+      return "Error";
+    }
+    synchro[0].location = this.to;
+    synchro[0].order = this.order;
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    return `${synchro[0].name}をシンクロ召喚:\n${actionLogs.join("\n")}`;
+  }
+}
+
+class XYZAction implements Action {
+  constructor(
+    public xyz: number,
+    public order: number,
+    public to: { zone: ZoneId; at: number },
+    public actions: Action[]
+  ) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    const xyz = cards.filter((c) => c.id === this.xyz);
+    if (xyz.length === 0) {
+      return "Error";
+    }
+    xyz[0].location = this.to;
+    xyz[0].order = this.order;
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    return `${xyz[0].name}をエクシーズ召喚:\n${actionLogs.join("\n")}`;
+  }
+}
+
+class PendulumAction implements Action {
+  constructor(public actions: Action[]) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    return `ペンデュラム召喚:\n${actionLogs.join("\n")}`;
+  }
+}
+
+class LinkAction implements Action {
+  constructor(
+    public link: number,
+    public to: { zone: ZoneId; at: number },
+    public actions: Action[]
+  ) {}
+  run(cards: CardStatus[]) {
+    let actionLogs = [];
+    const link = cards.filter((c) => c.id === this.link);
+    if (xyz.length === 0) {
+      return "Error";
+    }
+    link[0].location = this.to;
+    for (const action of this.actions) {
+      actionLogs.push(action.run(cards));
+    }
+    return `${link[0].name}をリンク召喚:\n${actionLogs.join("\n")}`;
   }
 }
 

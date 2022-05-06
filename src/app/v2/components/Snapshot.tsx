@@ -254,11 +254,11 @@ const toMainCards = (
   images: Images,
   cards: Tile[]
 ) => {
-  let tile1 = cards.filter((c) => c.location === 1);
-  let tile2 = cards.filter((c) => c.location === 2);
-  let tile3 = cards.filter((c) => c.location === 3);
-  let tile4 = cards.filter((c) => c.location === 4);
-  let tile5 = cards.filter((c) => c.location === 5);
+  let tile1 = cards.filter((c) => c.location === 0);
+  let tile2 = cards.filter((c) => c.location === 1);
+  let tile3 = cards.filter((c) => c.location === 2);
+  let tile4 = cards.filter((c) => c.location === 3);
+  let tile5 = cards.filter((c) => c.location === 4);
 
   let tiles = [tile1, tile2, tile3, tile4, tile5];
 
@@ -280,13 +280,13 @@ const toHands = (
   images: Images,
   cards: Tile[]
 ) => {
-  let tile1 = cards.filter((c) => c.location === 1);
-  let tile2 = cards.filter((c) => c.location === 2);
-  let tile3 = cards.filter((c) => c.location === 3);
-  let tile4 = cards.filter((c) => c.location === 4);
-  let tile5 = cards.filter((c) => c.location === 5);
-  let tile6 = cards.filter((c) => c.location === 6);
-  let tile7 = cards.filter((c) => c.location === 7);
+  let tile1 = cards.filter((c) => c.location === 0);
+  let tile2 = cards.filter((c) => c.location === 1);
+  let tile3 = cards.filter((c) => c.location === 2);
+  let tile4 = cards.filter((c) => c.location === 3);
+  let tile5 = cards.filter((c) => c.location === 4);
+  let tile6 = cards.filter((c) => c.location === 5);
+  let tile7 = cards.filter((c) => c.location === 6);
 
   let tiles = [tile1, tile2, tile3, tile4, tile5, tile6, tile7];
 

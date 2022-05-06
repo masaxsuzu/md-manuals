@@ -69,21 +69,25 @@ const init = () => {
     deck(0, "デスフェニ"),
     deck(1, "デスフェニ"),
     deck(2, "デスフェニ"),
+    deck(3, "ヴァイオン"),
+    deck(4, "ヴァイオン"),
+    deck(5, "ヴァイオン"),
+    deck(6, "ヴァイオン"),
+    deck(7, "シャドーミスト"),
+    deck(8, "シャドーミスト"),
+    deck(9, "シャドーミスト"),
   ];
 };
 
 const any = card4("ANY");
 const deathPhoenix = card3("デスフェニ");
-
+const vyon = card3("ヴァイオン");
+const shadowMist = card3("シャドーミスト");
 function a(): Log[] {
   const actions: Action[] = [
-    initCards([
-      deathPhoenix.a.toHand(1),
-      deathPhoenix.b.toHand(2),
-      deathPhoenix.c.toHand(3),
-    ]),
-    any.b.toHand(4),
-    any.b.toHand(5),
+    initCards([vyon.a.toHand(0), any.a.toHand(1)]),
+    vyon.a.ns(0),
+    vyon.a.ef([shadowMist.a.toCemetery(0)]),
   ];
 
   const logs = getSnapshots(init(), actions);
