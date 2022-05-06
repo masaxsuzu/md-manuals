@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Images } from "../../models/Images-model";
-import * as styles from "../App.scss";
+import * as styles from "../../App.scss";
 
 export const EmptyZone = (props: {
   images: Images;

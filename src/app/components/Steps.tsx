@@ -1,7 +1,7 @@
 import React from "react";
 import { Log } from "../models/Log-model";
 import { SnapShot } from "./Snapshot";
-import * as styles from "./App.scss";
+import * as styles from "../App.scss";
 import MediaQuery from "react-responsive";
 import { Manual1 } from "../manuals/manual1";
 import { Manual } from "../models/Manual-model";

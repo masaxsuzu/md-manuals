@@ -1,11 +1,11 @@
 import * as React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { CardStatus } from "../models/CardStatus-model";
-import { Snapshot } from "../models/Snapshot-model";
-import { Action } from "../models/Action-model";
-import { getSnapshots } from "../services/SnapshotService";
-import * as styles from "./App.scss";
-import { SnapShot } from "./Snapshot";
+import { CardStatus } from "../app/models/CardStatus-model";
+import { Snapshot } from "../app/models/Snapshot-model";
+import { Action } from "../app/models/Action-model";
+import { getSnapshots } from "../app/services/SnapshotService";
+import * as styles from "../app/App.scss";
+import { SnapShot } from "../app/components/Snapshot";
 import {
   initCards,
   ef,
@@ -20,12 +20,13 @@ import {
   toBanished,
   toSpellAndTrap,
   toXyz,
-} from "../services/ActionService";
-import { deck } from "../services/CardService";
-import { Steps } from "./Steps";
-import { Summary } from "./Summary";
-import { Log } from "../models/Log-model";
-import { getManual } from "../services/ManualService";
+} from "../app/services/ActionService";
+import { deck } from "../app/services/CardService";
+import { Steps } from "../app/components/Steps";
+import { Summary } from "../app/components/Summary";
+import { Log } from "../app/models/Log-model";
+import { getManual } from "../app/services/ManualService";
+import { App2 } from "./v2/App2";
 
 const ROUTER_BASENAME =
   process.env.NODE_ENV === "development" ? "/" : "/md-manuals";
@@ -38,6 +39,7 @@ export const App = () => {
   routers.push(
     <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
   );
+  routers.push(<Route key={"v2"} path={"v2"} element={<App2></App2>}></Route>);
   return (
     <BrowserRouter basename={ROUTER_BASENAME}>
       <Routes>{routers}</Routes>

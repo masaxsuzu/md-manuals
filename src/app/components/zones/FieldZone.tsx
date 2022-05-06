@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Images } from "../../models/Images-model";
 import { Tile } from "../../models/Tile-model";
-import * as styles from "../App.scss";
+import * as styles from "../../App.scss";
 
 export const FieldZone = (props: {
   images: Images;
