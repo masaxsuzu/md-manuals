@@ -40,10 +40,10 @@ export const App = () => {
     <Route
       key={"0"}
       path={""}
-      element={<Navigate to="v2/1"></Navigate>}
+      element={<Navigate to="v2/2"></Navigate>}
     ></Route>
   );
-  manual2([0]).forEach((x) => {
+  manual2([0, 1]).forEach((x) => {
     routers.push(x);
   });
   return (

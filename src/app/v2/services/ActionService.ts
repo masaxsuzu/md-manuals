@@ -235,6 +235,7 @@ class SynchroAction implements Action {
     }
     synchro[0].location = this.to;
     synchro[0].order = this.order;
+    synchro[0].head = true;
     for (const action of this.actions) {
       actionLogs.push(action.run(cards));
     }
@@ -257,6 +258,7 @@ class XYZAction implements Action {
     }
     xyz[0].location = this.to;
     xyz[0].order = this.order;
+    xyz[0].head = true;
     for (const action of this.actions) {
       actionLogs.push(action.run(cards));
     }
