@@ -41,6 +41,7 @@ export function ss(cardId: number, zone: ZoneId, at: number): Action {
   return new SpecialSummonAction(cardId, incrementOrder(), {
     zone: zone,
     at: at,
+    head: true,
   });
 }
 
@@ -177,7 +178,7 @@ class SpecialSummonAction implements Action {
   constructor(
     public cardId: number,
     public order: number,
-    public to: { zone: ZoneId; at?: number }
+    public to: { zone: ZoneId; at?: number, head?: boolean }
   ) {}
   run(cards: CardStatus[]) {
     new MoveAction(this.cardId, this.order, this.to).run(cards);
@@ -287,6 +288,7 @@ class LinkAction implements Action {
       return "Error";
     }
     link[0].location = this.to;
+    link[0].head = true;
     for (const action of this.actions) {
       actionLogs.push(action.run(cards));
     }

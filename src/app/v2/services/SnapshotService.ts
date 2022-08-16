@@ -53,7 +53,7 @@ function getSnapshot(state: CardStatus[]): Snapshot {
     .sort((a, b) => a.id - b.id);
 
   return {
-    vanished: toTile(banished),
+    banished: toTile(banished),
     extraMonsters: toTile(extraMonsters),
     cemetery: toTile(cemetery),
     hands: toTile(hands),

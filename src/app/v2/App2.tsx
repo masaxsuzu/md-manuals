@@ -15,7 +15,7 @@ export const App2 = () => {
       name: "デスフェニ",
     },
   ];
-  const vanished: Tile[] = [
+  const banished: Tile[] = [
     {
       head: true,
       location: 1,

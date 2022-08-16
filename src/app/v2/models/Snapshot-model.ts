@@ -2,7 +2,7 @@ import { Tile } from "./Tile-model";
 
 export interface Snapshot {
   extraMonsters: Tile[];
-  vanished: Tile[];
+  banished: Tile[];
   field: Tile[];
   mainMonsters: Tile[];
   cemetery: Tile[];

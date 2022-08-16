@@ -2,6 +2,7 @@ import React from "react";
 import { Images } from "../models/Images-model";
 import { Snapshot } from "../models/Snapshot-model";
 import { Tile } from "../models/Tile-model";
+import { BanishedZone } from "./zones/BanishedZone";
 import { EmptyZone } from "./zones/EmptyZone";
 import { TileZone } from "./zones/TileZone";
 
@@ -59,7 +60,7 @@ const toRows1 = (
   images: Images,
   props: {
     extraMonsters: Tile[];
-    vanished: Tile[];
+    banished: Tile[];
   }
 ) => {
   let rows = [];
@@ -147,14 +148,13 @@ const toRows1 = (
   );
 
   rows.push(
-    <TileZone
+    <BanishedZone
       key={6}
       width={itemWidth}
       height={itemHeight}
       images={images}
-      tiles={props.vanished}
-      isRotated={true}
-    ></TileZone>
+      tiles={props.banished}
+    ></BanishedZone>
   );
   return rows;
 };
