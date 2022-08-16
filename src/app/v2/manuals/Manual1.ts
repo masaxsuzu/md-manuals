@@ -105,12 +105,17 @@ function a(): Log[] {
     vyon.a.ns(0),
     vyon.a.ef([shadowMist.a.toCemetery(0)]),
     shadowMist.a.ef([malicious.a.toHand(0)]),
-    vyon.a.ef([shadowMist.a.toBanished(),fusion.a.toHand(2)]),
+    vyon.a.ef([shadowMist.a.toBanished(), fusion.a.toHand(2)]),
     fusion.a.toMagicAndTrap(0),
-    fusion.a.ef([dangerous.a.ss(0), vyon.a.toCemetery(), malicious.a.toCemetery(), fusion.a.toCemetery()]),
+    fusion.a.ef([
+      dangerous.a.ss(0),
+      vyon.a.toCemetery(),
+      malicious.a.toCemetery(),
+      fusion.a.toCemetery(),
+    ]),
     malicious.a.ef([malicious.a.toBanished(), malicious.b.ss(1)]),
     dangerous.a.ef([any.a.toCemetery(), denier.a.toCemetery()]),
-    anaconda.a.linkEx(0, [dangerous.a.toCemetery(), malicious.b.toCemetery()])
+    anaconda.a.linkEx(0, [dangerous.a.toCemetery(), malicious.b.toCemetery()]),
   ];
 
   const logs = getSnapshots(init(), actions);

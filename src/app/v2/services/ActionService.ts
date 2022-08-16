@@ -178,7 +178,7 @@ class SpecialSummonAction implements Action {
   constructor(
     public cardId: number,
     public order: number,
-    public to: { zone: ZoneId; at?: number, head?: boolean }
+    public to: { zone: ZoneId; at?: number; head?: boolean }
   ) {}
   run(cards: CardStatus[]) {
     new MoveAction(this.cardId, this.order, this.to).run(cards);

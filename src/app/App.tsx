@@ -22,12 +22,12 @@ import {
   toXyz,
 } from "../app/services/ActionService";
 import { deck } from "../app/services/CardService";
-import { Steps } from "../app/components/Steps";
-import { Summary } from "../app/components/Summary";
-import { Log } from "../app/models/Log-model";
+import { Steps as Steps1 } from "../app/components/Steps";
+import { Summary as Summary1 } from "../app/components/Summary";
 import { getManual } from "../app/services/ManualService";
-import { App2 } from "./v2/App2";
-
+import { getManual as getManual2 } from "../app/v2/services/ManualService";
+import { Steps as Steps2 } from "../app/v2/components/Steps";
+import { Summary as Summary2 } from "../app/v2/components/Summary";
 const ROUTER_BASENAME =
   process.env.NODE_ENV === "development" ? "/" : "/md-manuals";
 console.log(`ROUTER_BASENAME=${ROUTER_BASENAME}`);
@@ -35,11 +35,17 @@ console.log(`ROUTER_BASENAME=${process.env.PUBLIC_URL}`);
 
 export const App = () => {
   console.log("X");
-  const routers = manual([0, 1, 2, 3]);
+  const routers = manual1([0, 1, 2, 3]);
   routers.push(
-    <Route key={"0"} path={""} element={<Navigate to="2"></Navigate>}></Route>
+    <Route
+      key={"0"}
+      path={""}
+      element={<Navigate to="v2/1"></Navigate>}
+    ></Route>
   );
-  routers.push(<Route key={"v2"} path={"v2"} element={<App2></App2>}></Route>);
+  manual2([0]).forEach((x) => {
+    routers.push(x);
+  });
   return (
     <BrowserRouter basename={ROUTER_BASENAME}>
       <Routes>{routers}</Routes>
@@ -47,7 +53,7 @@ export const App = () => {
   );
 };
 
-function manual(ns: number[]) {
+function manual1(ns: number[]) {
   const routers: (JSX.Element | JSX.Element[])[] = [];
   ns.map((n) => {
     const key = n + 1;
@@ -56,7 +62,7 @@ function manual(ns: number[]) {
       <Route
         key={`${key}`}
         path={`${key}`}
-        element={<Summary id={key} manual={m}></Summary>}
+        element={<Summary1 id={key} manual={m}></Summary1>}
       ></Route>
     );
     let x = [...Array(m.getSize())].map((_, i) => {
@@ -64,7 +70,33 @@ function manual(ns: number[]) {
         <Route
           key={`${key}/${i}`}
           path={`${key}/${i}`}
-          element={<Steps manual={m} n={i}></Steps>}
+          element={<Steps1 manual={m} n={i}></Steps1>}
+        ></Route>
+      );
+    });
+    routers.push(x);
+  });
+  return routers;
+}
+
+export function manual2(ns: number[]) {
+  const routers: (JSX.Element | JSX.Element[])[] = [];
+  ns.map((n) => {
+    const key = n + 1;
+    const m = getManual2(n);
+    routers.push(
+      <Route
+        key={`${key}`}
+        path={`v2/${key}`}
+        element={<Summary2 id={key} manual={m}></Summary2>}
+      ></Route>
+    );
+    let x = [...Array(m.getSize())].map((_, i) => {
+      return (
+        <Route
+          key={`${key}/${i}`}
+          path={`v2/${key}/${i}`}
+          element={<Steps2 manual={m} n={i}></Steps2>}
         ></Route>
       );
     });
