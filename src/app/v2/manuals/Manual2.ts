@@ -3,7 +3,7 @@ import { Action } from "../models/Action-model";
 import { Card } from "../models/Card-model";
 import { Log } from "../models/Log-model";
 import { Manual } from "../models/Manual-model";
-import { deck, ef, initCards, link } from "../services/ActionService";
+import { chain, deck, ef, initCards, link } from "../services/ActionService";
 import { getSnapshots } from "../services/SnapshotService";
 import "../extensions/ActionExtension";
 
@@ -139,7 +139,8 @@ function a(): Log[] {
       any.b.toHand(3),
       any.c.toHand(4),
     ]),
-    rider.a.ef([rider.a.ss(1), ashuna.a.ef([ashuna.a.ss(0)])]),
+    chain([ashuna.a.ef([ashuna.a.ss(0)]), rider.a.ef([rider.a.ss(1)])]),
+    // rider.a.ef([rider.a.ss(1), ashuna.a.ef([ashuna.a.ss(0)])]),
     tomahawk.a.xyzMain(0, [ashuna.a.toXyz(0), rider.a.toXyz(1)]),
     tomahawk.a.ef([
       ashuna.a.toCemetery(),
@@ -157,13 +158,16 @@ function a(): Log[] {
     radon.a.ef([tokenG.a.ss(0), tokenG.b.ss(1), tokenG.c.ss(2)]),
     radon.a.ef([radon.a.toCemetery(), tokenG.a.toBanished(), tunerOl.a.ss(0)]),
     boutenko.a.synchroEx(0, [tunerOl.a.toCemetery(), tokenG.b.toBanished()]),
-    tunerOl.a.ef([tokenG.d.ss(1), boutenko.a.ef([kyushi.a.toHand(0)])]),
+    chain([
+      boutenko.a.ef([kyushi.a.toHand(0)]),
+      tunerOl.a.ef([tokenG.d.ss(1)]),
+    ]),
     boutenko.a.ef([vishuda.a.toCemetery()]),
     baroness.a.synchroEx(0, [boutenko.a.toCemetery(), tokenG.d.toBanished()]),
     boutenko.a.ef([tunerR.a.ss(0)]),
     gaizer.a.synchroMain(0, [tunerR.a.toCemetery(), tokenE.c.toBanished()]),
     baroness.a.ef([gaizer.a.toCemetery()]),
-    gaizer.a.ef([taia.a.ss(0), tunerR.a.ef([tunerR.a.ss(1)])]),
+    chain([gaizer.a.ef([taia.a.ss(0)]), tunerR.a.ef([tunerR.a.ss(1)])]),
     ashuna.a.ef([vishuda.b.ss(3)]),
     sekishou.a.synchroMain(1, [tunerR.a.toCemetery(), vishuda.b.toCemetery()]),
     sekishou.a.ef([kengen.a.toHand(1)]),

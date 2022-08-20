@@ -45,6 +45,10 @@ export function ss(cardId: number, zone: ZoneId, at: number): Action {
   });
 }
 
+export function chain(actions: Action[]): Action {
+  return new ChainAction(actions);
+}
+
 export function toHand(cardId: number, at?: number): Action {
   return new MoveAction(cardId, incrementOrder(), {
     zone: "hand",
@@ -184,6 +188,17 @@ class SpecialSummonAction implements Action {
     new MoveAction(this.cardId, this.order, this.to).run(cards);
     const card = cards.filter((c) => c.id === this.cardId)[0];
     return `${card.name}を特殊召喚`;
+  }
+}
+
+class ChainAction implements Action {
+  constructor(public actions: Action[]) {}
+  run(cards: CardStatus[]) {
+    let actionLogs: string[] = [];
+    this.actions.reverse().forEach((chain, i) => {
+      actionLogs.push(`チェイン${this.actions.length - i}:${chain.run(cards)}`);
+    });
+    return actionLogs.join("\n");
   }
 }
 
