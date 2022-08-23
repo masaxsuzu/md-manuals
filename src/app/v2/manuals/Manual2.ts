@@ -12,10 +12,10 @@ export class Manual2 implements Manual {
     return 0;
   }
   getSize(): number {
-    return 2;
+    return 3;
   }
   getAll(): Log[][] {
-    return [...Array(2)].map((_, n) => this.getNth(n));
+    return [...Array(this.getSize())].map((_, n) => this.getNth(n));
   }
   getNth(n: number): Log[] {
     switch (n) {
@@ -23,6 +23,8 @@ export class Manual2 implements Manual {
         return log1();
       case 1:
         return log2();
+      case 2:
+        return log3();
       default:
         return [];
     }
@@ -94,6 +96,7 @@ const init = () => {
     deck(16, "アーダラ"),
     deck(17, "レッドローズ"),
     deck(18, "ロクスローズ"),
+    deck(19, "雷仙神"),
     deck(20, "龍相剣現"),
     deck(21, "芽吹き"),
     deck(31, "九支"),
@@ -107,6 +110,9 @@ const init = () => {
     deck(107, "赤霄"),
     deck(108, "チョウホウ"),
     deck(109, "承影"),
+    deck(110, "拳僧"),
+    deck(111, "バリケイドベルグ"),
+    deck(112, "ショウフク"),
   ];
 };
 
@@ -137,6 +143,10 @@ const redRose = card1("レッドローズ");
 const roxRose = card1("ロクスローズ");
 const shoot = card1("芽吹き");
 const hari = card1("ハリファイバー");
+const senjin = card1("雷仙神");
+const kensou = card1("拳僧");
+const bari = card1("バリケイドベルグ");
+const shoufuku = card1("ショウフク");
 
 function log1(): Log[] {
   const actions: Action[] = [
@@ -252,6 +262,64 @@ function log2(): Log[] {
     kengen.a.ef([]),
     chouhou.a.synchroMain(1, [tokenS.a.toBanished(), taia.a.toCemetery()]),
     taia.a.ef([adara.a.toCemetery()]),
+    protos.a.ef([protos.a.ss(4)]),
+    protos.a.ef([]),
+    kyushi.a.toMagicAndTrap(3),
+  ];
+
+  const logs = getSnapshots(init(), actions);
+  logs.shift();
+
+  return logs;
+}
+
+function log3(): Log[] {
+  const actions: Action[] = [
+    initCards([
+      ashuna.a.toHand(0),
+      tunerR.a.toHand(1),
+      senjin.a.toHand(2),
+      any.b.toHand(3),
+      any.c.toHand(4),
+    ]),
+    ashuna.a.ef([ashuna.a.ss(0)]),
+    kensou.a.linkEx(0, [ashuna.a.toCemetery()]),
+    tunerR.a.ns(0),
+    senjin.a.ef([senjin.a.ss(1)]),
+    hari.a.synchroEx(0, [tunerR.a.toCemetery(), kensou.a.toCemetery()]),
+    hari.a.ef([redRose.a.ss(0)]),
+    baroness.a.synchroMain(0, [senjin.a.toCemetery(), redRose.a.toCemetery()]),
+    redRose.a.ef([roxRose.a.ss(1)]),
+    redRose.a.ef([shoot.a.toHand(0)]),
+    shoot.a.toMagicAndTrap(0),
+    shoot.a.ef([redRose.a.ss(2), shoot.a.toCemetery()]),
+    bari.a.synchroMain(1, [redRose.a.toCemetery(), roxRose.a.toCemetery()]),
+    radon.a.synchroEx(0, [hari.a.toCemetery(), bari.a.toCemetery()]),
+    radon.a.ef([tokenG.a.ss(1), tokenG.b.ss(2), tokenG.c.ss(3)]),
+    radon.a.ef([radon.a.toCemetery(), tokenG.c.toBanished(), tunerOl.a.ss(3)]),
+    boutenko.a.synchroEx(0, [tunerOl.a.toCemetery(), tokenG.b.toBanished()]),
+    chain([
+      boutenko.a.ef([kyushi.a.toHand(0)]),
+      tunerOl.a.ef([tokenG.d.ss(3)]),
+    ]),
+    boutenko.a.ef([taia.a.toCemetery()]),
+    gaizer.a.synchroEx(0, [boutenko.a.toCemetery(), tokenG.a.toBanished()]),
+    boutenko.a.ef([tunerR.b.ss(1)]),
+    baroness.a.ef([gaizer.a.toCemetery()]),
+    gaizer.a.ef([ashuna.b.ss(2)]),
+    shoufuku.a.synchroEx(0, [tunerR.b.toCemetery(), ashuna.b.toCemetery()]),
+    ashuna.a.ef([ashuna.a.toBanished(), adara.a.ss(1)]),
+    shoufuku.a.ef([tokenG.d.toBanished(), taia.a.ss(2)]),
+    chouhou.a.synchroMain(1, [adara.a.toCemetery(), shoufuku.a.toCemetery()]),
+    taia.a.ef([boutenko.a.toBanished(), tokenS.a.ss(3)]),
+    adara.a.ef([adara.a.toBanished(), ashuna.a.toHand(1)]),
+    sekishou.a.synchroMain(2, [tokenS.a.toBanished(), taia.a.toCemetery()]),
+    chain([
+      sekishou.a.ef([kengen.a.toHand(2)]),
+      taia.a.ef([vishuda.a.toCemetery()]),
+    ]),
+    kengen.a.toMagicAndTrap(0),
+    kengen.a.ef([protos.a.toHand(2), kengen.a.toCemetery()]),
     protos.a.ef([protos.a.ss(4)]),
     protos.a.ef([]),
     kyushi.a.toMagicAndTrap(3),
